@@ -12,49 +12,26 @@ export default function Application(props) {
     appointments: {}
   });
   const setDay = day => setState({ ...state, day });
-    time: "1pm",
-    interview: {
-      student: "Lydia Miller-Jones",
-      interviewer: {
-        id: 3,
-        name: "Sylvia Palmer",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  },
-  "3": {
-    id: 3,
-    time: "2pm",
-  },
-  "4": {
-    id: 4,
-    time: "3pm",
-    interview: {
-      student: "Archie Andrews",
-      interviewer: {
-        id: 4,
-        name: "Cohana Roy",
-        avatar: "https://i.imgur.com/FK8V841.jpg",
-      }
-    }
-  },
-  "5": {
-    id: 5,
-    time: "4pm",
-  }
-};
 
   const getDays = "/api/days";
   const getAppointments = "/api/appointments";
 
-export default function Application(props) {
-  const [days, setDays] = useState([]);
-  const [day, setDay] = useState(null);
   useEffect(() => {
-    axios.get(`/api/days`).then(response => {
-      setDays([response.data])
-      console.log(response.data);
-    });
+    Promise.all([
+      axios.get(getDays),
+      axios.get(getAppointments),
+    ])
+      .then((all) => {
+        const [daysAPI, appointmentsAPI] = all;
+        setState((prev) => ({
+          ...prev,
+          days: daysAPI.data,
+          appointments: appointmentsAPI.data,
+        }));
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
   }, []);
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
