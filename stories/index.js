@@ -15,6 +15,7 @@ import Header from "components/Appointment/Header"
 import Empty from "components/Appointment/Empty"
 import Confirm from "components/Appointment/Confirm";
 import Error from "components/Appointment/Error";
+import Form from "components/Appointment/Form";
 import Show from "components/Appointment/Show";
 import Status from "components/Appointment/Status";
 
@@ -174,6 +175,23 @@ storiesOf("InterviewerListItem", module)
         onClose={action("onClose")}
       />
     ))
+    .add("Form Create", () => (
+      <Form 
+        interviewers={interviewers}
+        onSave={action("onSave")}
+        onCancel={action("onCancel")}
+        onChange ={action("setInterviewer")}
+      />
+    ))
+    .add("Form Edit", () => (
+      <Form 
+        name="Caitlin Ing"
+        interviewers={interviewers}
+        interviewer={2}
+        onSave={action("onSave")}
+        onCancel={action("onCancel")}
+      />
+    ))
     .add("Show", () => (
       <Show
         student='Lydia Miller-Jones'
@@ -192,5 +210,4 @@ storiesOf("InterviewerListItem", module)
         message="Saving"
       />
     ))
-
       
