@@ -5,13 +5,13 @@ import DayList from "components/DayList";
 import Appointment from 'components/Appointment';
 import { getAppointmentsForDay } from "helpers/selectors";
 
-const appointments = {
-  "1": {
-    id: 1,
-    time: "12pm",
-  },
-  "2": {
-    id: 2,
+export default function Application(props) {
+  const [state, setState] = useState({
+    day: "Monday",
+    days: [],
+    appointments: {}
+  });
+  const setDay = day => setState({ ...state, day });
     time: "1pm",
     interview: {
       student: "Lydia Miller-Jones",
@@ -44,6 +44,7 @@ const appointments = {
   }
 };
 
+  const getDays = "/api/days";
   const getAppointments = "/api/appointments";
 
 export default function Application(props) {
@@ -56,6 +57,8 @@ export default function Application(props) {
     });
   }, []);
 
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
+
   return (
     <main className="layout">
       <section className="sidebar">
@@ -67,8 +70,8 @@ export default function Application(props) {
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
           <DayList
-            days={days}
-            value={day}
+            days={state.days}
+            day={state.day}
             onChange={setDay} />
         </nav>
         <img
