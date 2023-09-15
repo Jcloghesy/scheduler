@@ -1,7 +1,7 @@
 import React from 'react'
 import DayListItem from "components/DayListItem";
 
-export default function DayList({ days, day, onChange }) {
+export default function DayList({ days, day, setDay }) {
 
   const dayListItems = days.map((dayItem) => (
     <DayListItem
@@ -9,7 +9,7 @@ export default function DayList({ days, day, onChange }) {
       name={dayItem.name}
       spots={dayItem.spots}
       selected={dayItem.name === day}
-      setDay={onChange}
+      setDay={setDay}
     />
   ));
 
