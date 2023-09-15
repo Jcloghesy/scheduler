@@ -14,5 +14,5 @@ export default function Appointment({ message, onConfirm, onCancel }) {
         </Button>
       </section>
     </main>
-  )
+  );
 }

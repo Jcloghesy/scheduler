@@ -14,5 +14,5 @@ export default function Appointment({ onClose, message }) {
         onClick={onClose}
       />
     </main>
-  )
+  );
 }

@@ -27,5 +27,5 @@ export default function Appointment({ onDelete, onEdit, student, interviewer }) 
         </section>
       </section>
     </main>
-  )
+  );
 }

@@ -9,5 +9,6 @@ export default function Appointment({ onAdd }) {
         alt="Add"
         onClick={onAdd}
       />
-    </main>)
+    </main>
+  );
 }
