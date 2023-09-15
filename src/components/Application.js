@@ -38,18 +38,26 @@ export default function Application(props) {
   }, []);
 
   function bookInterview(id, interview) {
-    const appointment = {
-      ...state.appointments[id],
-      interview
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
-    setState(prevState => ({
-      ...prevState,
-      appointments
-    }));
+    return axios.put(`/api/appointments/${id}`, { interview })
+      .then(() => {
+        const appointment = {
+          ...state.appointments[id],
+          interview: { ...interview }
+        };
+        const appointments = {
+          ...state.appointments,
+          [id]: appointment
+        };
+        setState(prevState => ({
+          ...prevState,
+          appointments
+        }));
+        return true;
+      })
+      .catch(error => {
+        console.error('Error updating appointment:', error);
+        return false;
+      });
   }
 
   const appointments = getAppointmentsForDay(state, state.day);
