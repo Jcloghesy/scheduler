@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import Button from 'components/Button';
 import InterviewerList from 'components/InterviewerList';
 
-export default function Form(props) {
-  const { onCancel, onSave, interviewers } = props;
-  const [student, setStudent] = useState(props.student || "");
-  const [interviewer, setInterviewer] = useState(props.interviewer || null);
+export default function Form({ onCancel, onSave, interviewers, student, interviewer }) {
+
+  const [studentState, setStudent] = useState(student || "");
+  const [interviewerState, setInterviewer] = useState(interviewer || null);
 
   const handleStudentChange = (event) => {
     setStudent(event.target.value);
@@ -25,7 +25,7 @@ export default function Form(props) {
   };
 
   const handleSave = () => {
-    onSave(student, interviewer);
+    onSave(studentState, interviewerState);
   };
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -40,13 +40,13 @@ export default function Form(props) {
             name="name"
             type="text"
             placeholder="Enter Student Name"
-            value={student}
+            value={studentState}
             onChange={handleStudentChange}
           />
         </form>
         <InterviewerList
           interviewers={interviewers}
-          value={interviewer}
+          value={interviewerState}
           onChange={handleInterviewerChange}
         />
       </section>
